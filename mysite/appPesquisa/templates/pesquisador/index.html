@@ -1,0 +1,11 @@
+<html>
+    {% if pesquisadores %}
+    <ul>
+    {% for pesquisador in pesquisadores %}
+        <li><a href="/appPesquisa/pesquisador/{{ pesquisador.id }}/">{{ pesquisador.nome }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+        <p>Nenhum pesquisador cadastrado.</p>
+    {% endif %}
+</html>
