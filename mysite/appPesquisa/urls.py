@@ -6,12 +6,14 @@ app_name = 'appPesquisa'
 urlpatterns = [
     # ex: /appPesquisa/
     path("", views.index, name="index"),
-    # ex: /appPesquisa/pesquisadores/
+    # ex: /appPesquisa/pesquisador
+    path("pesquisador/novo/", views.cadastrarPesquisador, name="cadastrarPesquisador"),
+    # ex: /appPesquisa/pesquisador/
     path("pesquisador/", views.listarPesquisadores, name="listarPesquisadores"),
-    # ex: /appPesquisa/5/
+    # ex: /appPesquisa/pesquisador/5/
     path("pesquisador/<int:pesquisador_id>/", views.pesquisadorDetail, name="pesquisadorDetail"),
-    # ex: /appPesquisa/5/pesquisadorprojetos/
+    # ex: /appPesquisa/pesquisador/5/projetos/
     path("pesquisador/<int:pesquisador_id>/projetos/", views.pesquisadorProjetos, name="pesquisadorProjetos"),
-    # ex: /appPesquisa/5/pesquisadorresultados/
+    # ex: /appPesquisa/pesquisador/5/resultados/
     path("pesquisador/<int:pesquisador_id>/resultados/", views.pesquisadorResultados, name="pesquisadorResultados"),
 ]

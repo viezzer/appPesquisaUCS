@@ -1,8 +1,14 @@
 from django.db import models
 
 class Pesquisador(models.Model):
+    TIPO_CHOICES = [
+        ('aluno', 'Aluno'),
+        ('professor', 'Professor'),
+        ('funcionario', 'Funcionário'),
+    ]
+
     nome = models.CharField(max_length=100)
-    tipo = models.CharField(max_length=100)
+    tipo = models.CharField(max_length=20, choices=TIPO_CHOICES)
     area_atuacao = models.CharField(max_length=100)
 
     def __str__(self):

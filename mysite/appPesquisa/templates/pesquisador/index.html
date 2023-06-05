@@ -24,10 +24,13 @@
                         <label for="area_atuacao" class="block mb-2">Área de Atuação</label>
                         <input id="area_atuacao" name="area_atuacao" type="text" class="w-full border border-gray-300 rounded px-4 py-2" placeholder="Digite a área de atuação">
                     </div>
-                    <div class="w-1/2">
-                        <button type="submit" class="mt-8 ml-4 bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2">
+                    <div class="flex justify-between mt-8">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2">
                             Filtrar
                         </button>
+                        <a href="{% url 'appPesquisa:cadastrarPesquisador' %}" class="bg-green-500 hover:bg-green-600 text-white rounded px-4 py-2">
+                            Novo
+                        </a>
                     </div>
                 </div>
             </form>
