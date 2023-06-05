@@ -1,11 +1,52 @@
-<html>
-    {% if pesquisadores %}
-    <ul>
-    {% for pesquisador in pesquisadores %}
-        <li><a href="/appPesquisa/pesquisador/{{ pesquisador.id }}/">{{ pesquisador.nome }}</a></li>
-    {% endfor %}
-    </ul>
-    {% else %}
-        <p>Nenhum pesquisador cadastrado.</p>
-    {% endif %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisadores</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss-icons@2.2.19/dist/tailwind-icons.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mx-auto py-8">
+        {% if pesquisadores %}
+        <h1 class="text-2xl font-bold mb-4">Lista de Pesquisadores</h1>
+    
+        <div class="mb-4 flex">
+            <form class="flex w-full" method="GET">
+                <div class="w-full flex">
+                    <div class="w-1/2 mr-4">
+                        <label for="nome" class="block mb-2">Nome</label>
+                        <input id="nome" name="nome" type="text" class="w-full border border-gray-300 rounded px-4 py-2" placeholder="Digite o nome do pesquisador">
+                    </div>
+                    <div class="w-1/2">
+                        <label for="area_atuacao" class="block mb-2">Área de Atuação</label>
+                        <input id="area_atuacao" name="area_atuacao" type="text" class="w-full border border-gray-300 rounded px-4 py-2" placeholder="Digite a área de atuação">
+                    </div>
+                    <div class="w-1/2">
+                        <button type="submit" class="mt-8 ml-4 bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2">
+                            Filtrar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    
+        <!-- Lista de pesquisadores -->
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for pesquisador in pesquisadores %}
+                <li class="border border-gray-300 rounded p-4">
+                    <a href="{% url 'appPesquisa:pesquisadorDetail' pesquisador.id %}">
+                        <h2 class="text-lg font-bold mb-2">{{pesquisador.nome}}</h2>
+                        <p>Área de atuação: {{pesquisador.area_atuacao}}</p>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <h1 class="text-2xl font-bold mb-4">Nenhum pesquisador cadastrado</h1>
+        {% endif %}
+    </div>
+</body>
 </html>
