@@ -5,11 +5,24 @@ Cadastro
 {% endblock %}
 
 {% block content %}
-    <h1>Cadastrar Novo Pesquisador</h1>
+    <h1 class="text-2xl font-bold mb-4">Cadastro de Pesquisador</h1>
 
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Salvar</button>
+        <div class="mb-4">
+            {{ form.nome.label_tag }}
+            {{ form.nome }}
+        </div>
+        <div class="mb-4">
+            {{ form.tipo.label_tag }}
+            {{ form.tipo }}
+        </div>
+        <div class="mb-4">
+            {{ form.area_atuacao.label_tag }}
+            {{ form.area_atuacao }}
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2">
+            Cadastrar
+        </button>
     </form>
 {% endblock %}
