@@ -36,7 +36,8 @@ class PesquisadorUpdateView(UpdateView):
     model = Pesquisador
     template_name = 'pesquisador/update.html'
     fields = ['nome', 'tipo', 'area_atuacao']
-    success_url = reverse_lazy('appPesquisa:pesquisador_list')
+    def get_success_url(self):
+        return reverse_lazy('appPesquisa:pesquisadorDetail', kwargs={'pesquisador_id': self.object.pk})
 
 class PesquisadorDeleteView(DeleteView):
     model = Pesquisador
