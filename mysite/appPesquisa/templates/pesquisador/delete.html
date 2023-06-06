@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Deleção
+{% endblock %}
+
+{% block content %}
+    <h1>Deletar Pesquisador</h1>
+
+    <p>Deseja realmente deletar o pesquisador "{{ pesquisador.nome }}"?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirmar</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Pesquisadores
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <h1 class="text-4xl font-bold text-blue-600 mb-4">Pesquisadores</h1>
+    
+    <form method="GET">
+        <div class="flex">
+            <input type="text" name="nome" class="border border-gray-300 rounded-l px-4 py-2 flex-grow" placeholder="Nome" value="{{ request.GET.nome }}">
+            <select name="tipo" class="border border-gray-300 px-4 py-2">
+                <option value="">Todos tipos</option>
+                <option value="aluno" {% if request.GET.tipo == 'aluno' %}selected{% endif %}>Aluno</option>
+                <option value="professor" {% if request.GET.tipo == 'professor' %}selected{% endif %}>Professor</option>
+                <option value="funcionario" {% if request.GET.tipo == 'funcionario' %}selected{% endif %}>Funcionário</option>
+            </select>
+            <input type="text" name="area_atuacao" class="border border-gray-300 rounded-r px-4 py-2" placeholder="Área de atuação" value="{{ request.GET.area_atuacao }}">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2">
+                Pesquisar
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Lista de pesquisadores -->
+<ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+    {% for pesquisador in pesquisadores %}
+    <li class="border border-gray-300 rounded p-4">
+        <a href="{% url 'appPesquisa:pesquisadorDetail' pesquisador.pk %}">
+            <h2 class="text-lg font-bold mb-2">{{ pesquisador.nome }}</h2>
+            <p>Área de Atuação: {{ pesquisador.area_atuacao }}</p>
+        </a>
+    </li>
+    {% empty %}
+    <p>Nenhum pesquisador encontrado.</p>
+    {% endfor %}
+</ul>
+
+<div class="mt-4">
+    <a href="{% url 'appPesquisa:pesquisador_create' %}" class="bg-green-500 hover:bg-green-600 text-white rounded px-4 py-2">Cadastrar novo pesquisador</a>
+</div>
+
+{% endblock %}

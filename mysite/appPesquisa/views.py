@@ -1,10 +1,53 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.http import Http404
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 
 from .models import Pesquisador
 from .forms import PesquisadorForm
 
+class PesquisadorListView(ListView):
+    model = Pesquisador
+    template_name = 'pesquisador/list.html'
+    context_object_name = 'pesquisadores'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        nome = self.request.GET.get('nome')
+        tipo = self.request.GET.get('tipo')
+        area_atuacao = self.request.GET.get('area_atuacao')
+
+        if nome:
+            queryset = queryset.filter(nome__icontains=nome)
+        if tipo:
+            queryset = queryset.filter(tipo__icontains=tipo)
+        if area_atuacao:
+            queryset = queryset.filter(area_atuacao__icontains=area_atuacao)
+
+        return queryset
+
+class PesquisadorCreateView(CreateView):
+    model = Pesquisador
+    template_name = 'pesquisador/create.html'
+    fields = ['nome', 'tipo', 'area_atuacao']
+    success_url = reverse_lazy('appPesquisa:pesquisador_list')
+
+class PesquisadorUpdateView(UpdateView):
+    model = Pesquisador
+    template_name = 'pesquisador/update.html'
+    fields = ['nome', 'tipo', 'area_atuacao']
+    success_url = reverse_lazy('appPesquisa:pesquisador_list')
+
+class PesquisadorDeleteView(DeleteView):
+    model = Pesquisador
+    template_name = 'pesquisador/delete.html'
+    success_url = reverse_lazy('appPesquisa:pesquisador_list')
+
+# ----------------------------------------------------------------
+# ----------------------------------------------------------------
+# ----------------------------------------------------------------
 
 def index(request):
     raise Http404("Página em construçao")

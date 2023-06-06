@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}appPesquisa{% endblock %}</title>
+    <!-- Add your CSS and other external dependencies here -->
+    <!-- <link rel="stylesheet" href="{% static 'css/openai.css' %}"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body>
+    <header>
+        <!-- Add your header content here -->
+    </header>
+
+    <main>
+        <div class="container mx-auto py-8">
+            {% block content %}
+            <!-- The content of each specific page will be placed here -->
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <!-- Add your footer content here -->
+    </footer>
+
+    <!-- Add your JavaScript and other scripts here -->
+</body>
+</html>
