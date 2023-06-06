@@ -10,5 +10,5 @@ urlpatterns = [
     path('pesquisadores/<int:pk>/', PesquisadorUpdateView.as_view(), name='pesquisador_update'),
     path('pesquisadores/<int:pk>/delete/', PesquisadorDeleteView.as_view(), name='pesquisador_delete'),
     # ex: /appPesquisa/pesquisador/5/
-    path("pesquisador/<int:pesquisador_id>/", views.pesquisadorDetail, name="pesquisadorDetail"),
+    path("pesquisador/<int:pesquisador_id>/", views.pesquisadorDetail, name="pesquisador_detail"),
 ]

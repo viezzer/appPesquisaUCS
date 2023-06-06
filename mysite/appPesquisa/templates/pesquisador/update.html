@@ -7,7 +7,7 @@ Edição
 {% block content %}
     <!-- Botão voltar -->
     <div class="flex justify-start mb-4">
-        <a href="{% url 'appPesquisa:pesquisador_list' %}" class="bg-gray-500 hover:bg-gray-600 text-white rounded px-4 py-2">
+        <a href="{% url 'appPesquisa:pesquisador_detail' pesquisador.id %}" class="bg-gray-500 hover:bg-gray-600 text-white rounded px-4 py-2">
             Voltar
         </a>
     </div>

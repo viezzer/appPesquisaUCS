@@ -30,7 +30,7 @@ Pesquisadores
 <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
     {% for pesquisador in pesquisadores %}
     <li class="border border-gray-300 rounded p-4">
-        <a href="{% url 'appPesquisa:pesquisadorDetail' pesquisador.pk %}">
+        <a href="{% url 'appPesquisa:pesquisador_detail' pesquisador.pk %}">
             <h2 class="text-lg font-bold mb-2">{{ pesquisador.nome }}</h2>
             <p>Área de Atuação: {{ pesquisador.area_atuacao }}</p>
         </a>
