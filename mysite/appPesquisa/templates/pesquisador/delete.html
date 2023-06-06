@@ -5,12 +5,22 @@ Deleção
 {% endblock %}
 
 {% block content %}
-    <h1>Deletar Pesquisador</h1>
+    <!-- Botão voltar -->
+    <div class="flex justify-start mb-4">
+        <a href="{% url 'appPesquisa:pesquisador_detail' pesquisador.id %}" class="bg-gray-500 hover:bg-gray-600 text-white rounded px-4 py-2">
+            Voltar
+        </a>
+    </div>
+    <!-- Div centralizada -->
+    <div class="flex flex-col items-center">
+        <!-- Título -->
+        <h1 class='text-4xl font-bold text-red-600 mb-4 flex-grow'>Deletar {{pesquisador.nome}}</h1>
 
-    <p>Deseja realmente deletar o pesquisador "{{ pesquisador.nome }}"?</p>
+        <p class="mb-4">Deseja realmente deletar o pesquisador "{{ pesquisador.nome }}"?</p>
 
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Confirmar</button>
-    </form>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2">Confirmar</button>
+        </form>
+    </div>
 {% endblock %}

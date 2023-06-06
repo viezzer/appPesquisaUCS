@@ -15,8 +15,11 @@
   <!-- Título e botão editar -->
   <div class="flex mb-4">
     <h1 class="text-4xl font-bold text-blue-600 mb-4 flex-grow">Detalhes do Pesquisador</h1>
-    <a href="{% url 'appPesquisa:pesquisador_update' pesquisador.id %}" class="bg-gray-500 hover:bg-gray-600 text-white rounded px-4 py-2">
+    <a href="{% url 'appPesquisa:pesquisador_update' pesquisador.id %}" class="bg-gray-500 hover:bg-gray-600 text-white rounded px-4 py-2 mx-2 h-full">
       Editar
+    </a>
+    <a href="{% url 'appPesquisa:pesquisador_delete' pesquisador.id %}" class="bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2 h-full">
+      Deletar
     </a>
   </div>
 
