@@ -6,7 +6,7 @@ class PesquisadorCRUDTest(TestCase):
     def setUp(self):
         self.pesquisador = Pesquisador.objects.create(
             nome='John Doe',
-            tipo='Aluno',
+            tipo='aluno',
             area_atuacao='Ciência da Computação'
         )
 
@@ -26,8 +26,8 @@ class PesquisadorCRUDTest(TestCase):
             'tipo': 'professor',
             'area_atuacao': 'Matemática'
         })
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(Pesquisador.objects.count(), 1)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Pesquisador.objects.count(), 2)
 
     def test_pesquisador_update(self):
         response = self.client.post(reverse('appPesquisa:pesquisador_update', args=[self.pesquisador.pk]), {
@@ -35,7 +35,7 @@ class PesquisadorCRUDTest(TestCase):
             'tipo': 'funcionario',
             'area_atuacao': 'Engenharia'
         })
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         self.pesquisador.refresh_from_db()
         self.assertEqual(self.pesquisador.nome, 'Updated Name')
 
