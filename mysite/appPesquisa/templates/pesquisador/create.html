@@ -5,24 +5,50 @@ Cadastro
 {% endblock %}
 
 {% block content %}
-    <h1 class="text-2xl font-bold mb-4">Cadastro de Pesquisador</h1>
+    <!-- Botão voltar -->
+    <div class="flex justify-start mb-4">
+        <a href="{% url 'appPesquisa:pesquisador_list' %}" class="bg-gray-500 hover:bg-gray-600 text-white rounded px-4 py-2">
+            Voltar
+        </a>
+    </div>
 
-    <form method="post">
-        {% csrf_token %}
-        <div class="mb-4">
-            {{ form.nome.label_tag }}
-            {{ form.nome }}
-        </div>
-        <div class="mb-4">
-            {{ form.tipo.label_tag }}
-            {{ form.tipo }}
-        </div>
-        <div class="mb-4">
-            {{ form.area_atuacao.label_tag }}
-            {{ form.area_atuacao }}
-        </div>
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2">
-            Cadastrar
-        </button>
-    </form>
+    <!-- Div centralizada -->
+    <div class="flex flex-col items-center">
+        <!-- Título -->
+        <h1 class="text-4xl font-bold text-blue-600 mb-4">
+            Cadastro de Pesquisador
+        </h1>
+        <!-- Formulário -->
+        <form method="post" class='w-full max-w-sm'>
+            {% csrf_token %}
+            {% if form.errors %}
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-4 rounded">
+                    <ul>
+                        {% for field in form %}
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <li><b>{{ field.label_tag}}</b> {{error}}</li>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="mb-4">
+                {{ form.nome.label_tag }}
+                {{ form.nome }}
+            </div>
+            <div class="mb-4">
+                {{ form.tipo.label_tag }}
+                {{ form.tipo }}
+            </div>
+            <div class="mb-4">
+                {{ form.area_atuacao.label_tag }}
+                {{ form.area_atuacao }}
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2">
+                Cadastrar
+            </button>
+        </form>
+    </div>
 {% endblock %}
