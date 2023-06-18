@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Projetos
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <h1 class="text-4xl font-bold text-blue-600 mb-4">Projetos</h1>
+    
+    <form method="GET">
+        <div class="flex">
+            <input type="text" name="nome" class="border border-gray-300 rounded-l px-4 py-2 flex-grow" placeholder="Nome" value="{{ request.GET.nome }}">
+            <select name="situacao" class="border border-gray-300 px-4 py-2">
+                <option value="">Situação do projeto</option>
+                <option value="encerrado" {% if request.GET.situacao == 'encerrado' %}selected{% endif %}>Encerrado</option>
+                <option value="em andamento" {% if request.GET.situacao == 'em andamento' %}selected{% endif %}>Em andamento</option>
+            </select>
+            <input type="text" name="natureza" class="border border-gray-300 rounded-r px-4 py-2" placeholder="Natureza" value="{{ request.GET.natureza }}">
+            <!-- Create a datefield with datepicker  -->
+            <input type="date" name="criado_em" class="border border-gray-300 rounded-r px-4 py-2" placeholder="Data de criação" value="{{ request.GET.criado_em }}">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2">
+                Pesquisar
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Lista de projetos -->
+<ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+    {% for projeto in projetos %}
+    <li class="border border-gray-300 rounded p-4">
+        <a href="{% url 'appPesquisa:projeto_detail' projeto.pk %}">
+            <h2 class="text-lg font-bold mb-2">{{ projeto.nome }}</h2>
+            <p>Situação: {{ projeto.situacao }}</p>
+            <p>Natureza: {{ projeto.natureza }}</p>
+        </a>
+    </li>
+    {% empty %}
+    <p>Nenhum projeto encontrado.</p>
+    {% endfor %}
+</ul>
+
+<div class="mt-4">
+    <a href="{% url 'appPesquisa:projeto_create' %}" class="bg-green-500 hover:bg-green-600 text-white rounded px-4 py-2">Cadastrar novo projeto</a>
+</div>
+
+{% endblock %}

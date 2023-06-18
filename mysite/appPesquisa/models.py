@@ -1,5 +1,11 @@
 from django.db import models
 
+OPCOES_SITUACAO = (
+        ('em andamento', 'Em andamento'),
+        ('encerrado', 'Encerrado'),
+    )
+
+
 class Pesquisador(models.Model):
     TIPO_CHOICES = [
         ('aluno', 'Aluno'),
@@ -15,15 +21,12 @@ class Pesquisador(models.Model):
         return self.nome
     
 class Projeto(models.Model):
-    OPCOES_SITUACAO = (
-        ('em andamento', 'Em andamento'),
-        ('encerrado', 'Encerrado'),
-    )
+    
     nome = models.CharField(max_length=100)
-    descricao = models.CharField(max_length=100)
+    descricao = models.TextField()
     situacao = models.CharField(max_length=100, choices=OPCOES_SITUACAO)
     natureza = models.CharField(max_length=100)
-    criado_em = models.DateTimeField()
+    criado_em = models.DateField()
     membros = models.ManyToManyField(Pesquisador, through="PesquisadorProjeto")
 
     def __str__(self):
@@ -36,5 +39,8 @@ class PesquisadorProjeto(models.Model):
     )
     pesquisador = models.ForeignKey(Pesquisador, on_delete=models.CASCADE)
     projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
-    papel = models.CharField(max_length=64, choices=OPCOES_PAPEL)
-    date_joined = models.DateField()
+    papel = models.CharField(max_length=64, choices=OPCOES_PAPEL, default='integrante')
+    date_joined = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return self.pesquisador.nome + ' - ' + 'Papel: ' + self.papel

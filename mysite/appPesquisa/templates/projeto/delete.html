@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Deleção
+{% endblock %}
+
+{% block content %}
+    <!-- Botão voltar -->
+    <div class="flex justify-start mb-4">
+        <a href="{% url 'appPesquisa:projeto_detail' projeto.id %}" class="bg-gray-500 hover:bg-gray-600 text-white rounded px-4 py-2">
+            Voltar
+        </a>
+    </div>
+    <!-- Div centralizada -->
+    <div class="flex flex-col items-center">
+        <!-- Título -->
+        <h1 class='text-4xl font-bold text-red-600 mb-4 flex-grow'>Deletar {{projeto.nome}}</h1>
+
+        <p class="mb-4">Deseja realmente deletar o projeto "{{ projeto.nome }}"?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2">Confirmar</button>
+        </form>
+    </div>
+{% endblock %}
