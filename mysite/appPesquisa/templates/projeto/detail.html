@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{projeto.nome}}
+{% endblock %}
+
+{% block content %}
+  <!-- Botão voltar -->
+  <div class="flex justify-start mb-4">
+    <a href="{% url 'appPesquisa:projeto_list' %}" class="bg-gray-500 hover:bg-gray-600 text-white rounded px-4 py-2">
+        Voltar
+    </a>
+  </div>
+
+  <!-- Título e botão editar -->
+  <div class="flex mb-4">
+    <h1 class="text-4xl font-bold text-blue-600 mb-4 flex-grow">Detalhes do Projeto</h1>
+    <a href="{% url 'appPesquisa:projeto_update' projeto.id %}" class="bg-gray-500 hover:bg-gray-600 text-white rounded px-4 py-2 mx-2 h-full">
+      Editar
+    </a>
+    <a href="{% url 'appPesquisa:projeto_delete' projeto.id %}" class="bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2 h-full">
+      Deletar
+    </a>
+  </div>
+
+    <div class="border border-gray-300 rounded p-4 mb-4">
+      <h2 class="text-lg font-bold mb-2">{{projeto.nome}}</h2>
+      <p>Situação: {{ projeto.situacao }}</p>
+      <p>Natureza: {{ projeto.natureza }}</p>
+    </div>
+
+    <div class="border border-gray-300 rounded p-4 mb-4">
+      <h2 class="text-lg font-bold mb-2">Pesquisadores</h2>
+      <ul>
+        {% for pesquisador in pesquisadores %}
+          <li>{{ pesquisador }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+{% endblock %}
