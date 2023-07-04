@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 
 from .forms import ProjetoForm
 
-from .models import PesquisadorProjeto, Projeto, Pesquisador
+from .models import PesquisadorProjeto, Projeto, Pesquisador, Resultado
 
 class ProjetosListView(ListView):
     model = Projeto
@@ -74,8 +74,8 @@ class ProjetoDeleteView(DeleteView):
 def projetoDetail(request, projeto_id):
     projeto = get_object_or_404(Projeto,pk=projeto_id)
     relacao_pesquisadores = PesquisadorProjeto.objects.filter(projeto=projeto_id)
-
-    return render(request, "projeto/detail.html", {"projeto": projeto, "pesquisadores": relacao_pesquisadores})
+    resultados = Resultado.objects.filter(projeto=projeto_id)
+    return render(request, "projeto/detail.html", {"projeto": projeto, "pesquisadores": relacao_pesquisadores, "resultados": resultados})
 
 def pesquisadorProjetos(request, projeto_id):
     response = "Você está procurando pelos projetos de %s."
