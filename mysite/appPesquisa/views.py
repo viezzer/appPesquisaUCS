@@ -59,3 +59,6 @@ def pesquisadorProjetos(request, pesquisador_id):
 def pesquisadorResultados(request, pesquisador_id):
     response = "Você está procurando pelos resultados de %s."
     return HttpResponse(response % pesquisador_id)
+
+def index(request):
+    return render(request, "index.html")

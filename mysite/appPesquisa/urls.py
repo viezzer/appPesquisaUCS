@@ -6,6 +6,8 @@ from .views import PesquisadorListView, PesquisadorCreateView, PesquisadorUpdate
 
 app_name = 'appPesquisa'
 urlpatterns = [
+    path('', views.index, name='index'),
+    
     path('pesquisadores/', PesquisadorListView.as_view(), name='pesquisador_list'),
     path('pesquisadores/create/', PesquisadorCreateView.as_view(), name='pesquisador_create'),
     path('pesquisadores/<int:pk>/', PesquisadorUpdateView.as_view(), name='pesquisador_update'),

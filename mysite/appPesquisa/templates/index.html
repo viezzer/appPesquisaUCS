@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Navegação
+{% endblock %}
+
+{% block content %}
+<style>
+    main .container{
+        padding: 0px;
+    }
+</style>
+
+<div class="flex flex-col items-center justify-center min-h-screen">
+    <a href="{% url 'appPesquisa:projeto_list' %}" class="bg-green-500 hover:bg-green-600 text-white rounded-lg py-4 px-8 text-2xl mb-4 w-64 text-center">
+        Projetos
+    </a>
+    <a href="{% url 'appPesquisa:pesquisador_list' %}" class="bg-green-500 hover:bg-green-600 text-white rounded-lg py-4 px-8 text-2xl w-64 text-center">
+        Pesquisadores
+    </a>
+</div>
+{% endblock %}
