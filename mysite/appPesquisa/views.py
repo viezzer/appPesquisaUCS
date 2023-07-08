@@ -24,7 +24,7 @@ class PesquisadorListView(ListView):
         if area_atuacao:
             queryset = queryset.filter(area_atuacao__icontains=area_atuacao)
 
-        return queryset
+        return queryset.order_by('nome')
 
 class PesquisadorCreateView(CreateView):
     model = Pesquisador

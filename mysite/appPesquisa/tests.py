@@ -7,7 +7,7 @@ class PesquisadorCRUDTest(TestCase):
         self.pesquisador = Pesquisador.objects.create(
             nome='John Doe',
             tipo='aluno',
-            area_atuacao='Ciência da Computação'
+            area_atuacao='Ciências Exatas e da Terra'
         )
 
     def test_pesquisador_list(self):
@@ -24,7 +24,7 @@ class PesquisadorCRUDTest(TestCase):
         response = self.client.post(reverse('appPesquisa:pesquisador_create'), {
             'nome': 'Jane Smith',
             'tipo': 'professor',
-            'area_atuacao': 'Matemática'
+            'area_atuacao': 'Ciências Exatas e da Terra'
         })
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Pesquisador.objects.count(), 2)
@@ -33,7 +33,7 @@ class PesquisadorCRUDTest(TestCase):
         response = self.client.post(reverse('appPesquisa:pesquisador_update', args=[self.pesquisador.pk]), {
             'nome': 'Updated Name',
             'tipo': 'funcionario',
-            'area_atuacao': 'Engenharia'
+            'area_atuacao': 'Ciências Exatas e da Terra'
         })
         self.assertEqual(response.status_code, 302)
         self.pesquisador.refresh_from_db()
@@ -47,9 +47,9 @@ class PesquisadorCRUDTest(TestCase):
 class PesquisadorListFilterTest(TestCase):
     def setUp(self):
         # Criando alguns pesquisadores de exemplo
-        Pesquisador.objects.create(nome='João', tipo='aluno', area_atuacao='Biologia')
-        Pesquisador.objects.create(nome='Maria', tipo='professor',  area_atuacao='Química')
-        Pesquisador.objects.create(nome='Pedro', tipo='professor',  area_atuacao='Física')
+        Pesquisador.objects.create(nome='João', tipo='aluno', area_atuacao='Linguística, Letras e Artes')
+        Pesquisador.objects.create(nome='Maria', tipo='professor',  area_atuacao='Ciências Exatas e da Terra')
+        Pesquisador.objects.create(nome='Pedro', tipo='professor',  area_atuacao='Ciências da Saúde')
 
     def test_pesquisador_filtro_por_nome(self):
         # Realiza uma pesquisa por nome
@@ -61,7 +61,7 @@ class PesquisadorListFilterTest(TestCase):
         # Verifica se a pesquisa retornou apenas o pesquisador correto
         self.assertEqual(response.context['pesquisadores'][0].nome, 'João')
         self.assertEqual(response.context['pesquisadores'][0].tipo, 'aluno')
-        self.assertEqual(response.context['pesquisadores'][0].area_atuacao, 'Biologia')
+        self.assertEqual(response.context['pesquisadores'][0].area_atuacao, 'Linguística, Letras e Artes')
 
     def test_pesquisador_filtro_por_tipo(self):
         # Realiza uma pesquisa por nome
@@ -73,11 +73,11 @@ class PesquisadorListFilterTest(TestCase):
         # Verifica se a pesquisa retornou apenas o pesquisador correto
         self.assertEqual(response.context['pesquisadores'][0].nome, 'Maria')
         self.assertEqual(response.context['pesquisadores'][0].tipo, 'professor')
-        self.assertEqual(response.context['pesquisadores'][0].area_atuacao, 'Química')
+        self.assertEqual(response.context['pesquisadores'][0].area_atuacao, 'Ciências Exatas e da Terra')
 
     def test_pesquisador_filtro_por_area_atuacao(self):
         # Realiza uma pesquisa por nome
-        response = self.client.get(reverse('appPesquisa:pesquisador_list'), {'area_atuacao': 'Física'})
+        response = self.client.get(reverse('appPesquisa:pesquisador_list'), {'area_atuacao': 'Ciências da Saúde'})
 
         # Verifica se a resposta é 200 (sucesso)
         self.assertEqual(response.status_code, 200)
@@ -85,7 +85,7 @@ class PesquisadorListFilterTest(TestCase):
         # Verifica se a pesquisa retornou apenas o pesquisador correto
         self.assertEqual(response.context['pesquisadores'][0].nome, 'Pedro')
         self.assertEqual(response.context['pesquisadores'][0].tipo, 'professor')
-        self.assertEqual(response.context['pesquisadores'][0].area_atuacao, 'Física')
+        self.assertEqual(response.context['pesquisadores'][0].area_atuacao, 'Ciências da Saúde')
 
     def test_pesquisador_filtro_por_nome_sem_resultados(self):
         # Realiza uma pesquisa por nome que não retorna resultados

@@ -12,10 +12,21 @@ class Pesquisador(models.Model):
         ('professor', 'Professor'),
         ('funcionario', 'Funcionário'),
     ]
+    
+    ATUACAO_CHOICES = [
+        ('Linguística, Letras e Artes', 'Linguística, Letras e Artes'),
+        ('Ciências Humanas', 'Ciências Humanas'),
+        ('Ciências Sociais Aplicadas', 'Ciências Sociais Aplicadas'),
+        ('Ciências Agrárias', 'Ciências Agrárias'),
+        ('Ciências da Saúde', 'Ciências da Saúde'),
+        ('Engenharias', 'Engenharias'),
+        ('Ciências Biológicas', 'Ciências Biológicas'),
+        ('Ciências Exatas e da Terra', 'Ciências Exatas e da Terra'),
+    ]
 
     nome = models.CharField(max_length=100)
     tipo = models.CharField(max_length=20, choices=TIPO_CHOICES)
-    area_atuacao = models.CharField(max_length=100)
+    area_atuacao = models.CharField(max_length=100, choices=ATUACAO_CHOICES)
 
     def __str__(self):
         return self.nome
