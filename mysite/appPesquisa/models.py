@@ -1,10 +1,10 @@
+import datetime
 from django.db import models
 
 OPCOES_SITUACAO = (
         ('em andamento', 'Em andamento'),
         ('encerrado', 'Encerrado'),
     )
-
 
 class Pesquisador(models.Model):
     TIPO_CHOICES = [
@@ -26,7 +26,7 @@ class Projeto(models.Model):
     descricao = models.TextField()
     situacao = models.CharField(max_length=100, choices=OPCOES_SITUACAO)
     natureza = models.CharField(max_length=100)
-    criado_em = models.DateField()
+    criado_em = models.DateField(default=datetime.date.today)
     membros = models.ManyToManyField(Pesquisador, through="PesquisadorProjeto")
 
     def __str__(self):
@@ -44,3 +44,20 @@ class PesquisadorProjeto(models.Model):
 
     def __str__(self):
         return self.pesquisador.nome + ' - ' + 'Papel: ' + self.papel
+    
+
+class Resultado (models.Model):
+    OPCOES_TIPO = (
+        ('artigo', 'Artigo'),
+        ('servico', 'Serviço'),
+        ('relatorio', 'Relatório'),
+        ('produto', 'Produto'),
+        ('prototipo', 'Protótipo')
+    )
+    projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
+    tipo = models.CharField(max_length=64, choices=OPCOES_TIPO, default='artigo')
+    titulo = models.CharField(max_length=100)
+    descricao = models.TextField()
+
+    def __str__(self):
+        return self.titulo + ' - ' + self.tipo

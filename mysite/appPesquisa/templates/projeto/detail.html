@@ -18,8 +18,11 @@
     <a href="{% url 'appPesquisa:projeto_update' projeto.id %}" class="bg-gray-500 hover:bg-gray-600 text-white rounded px-4 py-2 mx-2 h-full">
       Editar
     </a>
-    <a href="{% url 'appPesquisa:projeto_delete' projeto.id %}" class="bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2 h-full">
+    <a href="{% url 'appPesquisa:projeto_delete' projeto.id %}" class="bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2 mx-2 h-full">
       Deletar
+    </a>
+    <a href="{% url 'appPesquisa:projeto_create' projeto.id %}" class="bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2 h-full">
+      Adicionar resutladdo
     </a>
   </div>
 
@@ -34,6 +37,15 @@
       <ul>
         {% for pesquisador in pesquisadores %}
           <li>{{ pesquisador }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="border border-gray-300 rounded p-4 mb-4">
+      <h2 class="text-lg font-bold mb-2">Resultados</h2>
+      <ul>
+        {% for resultado in resultados %}
+          <li>{{ resultado }}</li>
         {% endfor %}
       </ul>
     </div>
