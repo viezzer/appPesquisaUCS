@@ -3,7 +3,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 
-from .models import Pesquisador
+from .models import Pesquisador, PesquisadorProjeto
 
 class PesquisadorListView(ListView):
     model = Pesquisador
@@ -50,7 +50,8 @@ class PesquisadorDeleteView(DeleteView):
 
 def pesquisadorDetail(request, pesquisador_id):
     pesquisador = get_object_or_404(Pesquisador,pk=pesquisador_id)
-    return render(request, "pesquisador/detail.html", {"pesquisador": pesquisador})
+    relacao_projeto = PesquisadorProjeto.objects.filter(pesquisador=pesquisador_id)
+    return render(request, "pesquisador/detail.html", {"pesquisador": pesquisador, "projetos": relacao_projeto})
 
 def pesquisadorProjetos(request, pesquisador_id):
     response = "Você está procurando pelos projetos de %s."

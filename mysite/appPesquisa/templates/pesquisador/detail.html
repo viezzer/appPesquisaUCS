@@ -32,13 +32,9 @@
       <h2 class="text-lg font-bold mb-2">Projetos</h2>
       <ul>
         <!-- Adicione mais projetos conforme necessário -->
-      </ul>
-    </div>
-
-    <div class="border border-gray-300 rounded p-4">
-      <h2 class="text-lg font-bold mb-2">Resultados Obtidos</h2>
-      <ul>
-        <!-- Adicione mais resultados conforme necessário -->
+        {% for projeto in projetos %}
+          <li>{{ projeto.dados_relacionamento_para_string }}</li>
+        {% endfor %}
       </ul>
     </div>
   </div>

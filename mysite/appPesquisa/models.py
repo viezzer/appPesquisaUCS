@@ -58,6 +58,8 @@ class PesquisadorProjeto(models.Model):
     def __str__(self):
         return self.pesquisador.nome + ' - ' + 'Papel: ' + self.papel
     
+    def dados_relacionamento_para_string(self):
+        return "Projeto: " + self.projeto.nome + " - " + "Papel: " + self.papel
 
 class Resultado (models.Model):
     OPCOES_TIPO = (
