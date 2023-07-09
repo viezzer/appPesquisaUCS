@@ -2,10 +2,10 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponse
 from django.urls import reverse_lazy
+from django import forms
+from .forms import ProjetoForm, ProjetoPesquisadorForm
+from .models import PesquisadorProjeto, Projeto, Resultado
 
-from .forms import ProjetoForm
-
-from .models import PesquisadorProjeto, Projeto, Pesquisador, Resultado
 
 class ProjetosListView(ListView):
     model = Projeto
@@ -37,14 +37,29 @@ class ProjetoCreateView(CreateView):
     form_class = ProjetoForm
     success_url = reverse_lazy('appPesquisa:projeto_list')
 
-    #override the create object method
-    # def form_valid(self, form):
-    #     projeto = form.save()
-    #     pesquisadores = form.cleaned_data['membros']
-    #     for pesquisador in pesquisadores:
-    #         PesquisadorProjeto.objects.create(pesquisador=pesquisador, projeto=projeto, papel='integrante')
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        self.object = form.save()
+        inline_form = forms.inlineformset_factory(Projeto, PesquisadorProjeto, form=ProjetoPesquisadorForm, extra=1)
+        inline = inline_form(self.request.POST, instance=self.object)
+
+        for i in inline:
+            i.instance.projeto = self.object
+            if i.is_valid():
+                i.save()
+
+        return super().form_valid(form)
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['projeto'] = ProjetoForm(self.request.POST)
+            inline_form = forms.inlineformset_factory(Projeto, PesquisadorProjeto, form=ProjetoPesquisadorForm,  extra=1)
+            context['inline'] = inline_form(self.request.POST)
+        else:
+            context['projeto'] = ProjetoForm()
+            inline_form = forms.inlineformset_factory(Projeto, PesquisadorProjeto, form=ProjetoPesquisadorForm,  extra=1)
+            context['inline'] = inline_form()
+        return context
 
 
 class ProjetoUpdateView(UpdateView):
@@ -52,11 +67,35 @@ class ProjetoUpdateView(UpdateView):
     template_name = 'projeto/update.html'
     form_class = ProjetoForm
 
-    #field criado_em is not receiving the value from the object
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields['criado_em'].initial = self.object.criado_em.strftime('%d.%m.%Y')
         return form
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['form'] = ProjetoForm(self.request.POST, instance=self.object)
+            inline_form = forms.inlineformset_factory(Projeto, PesquisadorProjeto, form=ProjetoPesquisadorForm, extra=1)
+            context['inline'] = inline_form(self.request.POST, instance=self.object)
+        else:
+            context['form'] = ProjetoForm(instance=self.object)
+            inline_form = forms.inlineformset_factory(Projeto, PesquisadorProjeto, form=ProjetoPesquisadorForm, extra=1)
+            context['inline'] = inline_form(instance=self.object)
+        return context
+    
+
+    def form_valid(self, form):
+        self.object = form.save()
+        inline_form = forms.inlineformset_factory(Projeto, PesquisadorProjeto, form=ProjetoPesquisadorForm, extra=1)
+        inline = inline_form(self.request.POST, instance=self.object)
+
+        for i in inline:
+            i.instance.projeto = self.object
+            if i.is_valid():
+                i.save()
+
+        return super().form_valid(form)
 
     
     def get_success_url(self):

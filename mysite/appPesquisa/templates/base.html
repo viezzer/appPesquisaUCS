@@ -8,6 +8,8 @@
     <!-- Add your CSS and other external dependencies here -->
     <!-- <link rel="stylesheet" href="{% static 'css/openai.css' %}"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
 </head>
 <body>
     <header>
@@ -27,5 +29,7 @@
     </footer>
 
     <!-- Add your JavaScript and other scripts here -->
+    {% block javascript %}
+    {% endblock %}
 </body>
 </html>

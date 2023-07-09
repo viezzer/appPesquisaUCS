@@ -6,6 +6,13 @@ Projetos
 
 {% block content %}
 
+<!-- Botão voltar -->
+<div class="flex justify-start mb-4">
+    <a href="{% url 'appPesquisa:index' %}" class="bg-gray-500 hover:bg-gray-600 text-white rounded px-4 py-2">
+        Voltar
+    </a>
+</div>
+
 <div class="mb-4">
     <h1 class="text-4xl font-bold text-blue-600 mb-4">Projetos</h1>
     
@@ -16,6 +23,7 @@ Projetos
                 <option value="">Situação do projeto</option>
                 <option value="encerrado" {% if request.GET.situacao == 'encerrado' %}selected{% endif %}>Encerrado</option>
                 <option value="em andamento" {% if request.GET.situacao == 'em andamento' %}selected{% endif %}>Em andamento</option>
+                <option value="prorrogado" {% if request.GET.situacao == 'prorrogado' %}selected{% endif %}>Prorrogado</option>
             </select>
             <input type="text" name="natureza" class="border border-gray-300 rounded-r px-4 py-2" placeholder="Natureza" value="{{ request.GET.natureza }}">
             <!-- Create a datefield with datepicker  -->

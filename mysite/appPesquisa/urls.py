@@ -21,7 +21,9 @@ urlpatterns = [
     path('projetos/<int:pk>/delete/', projetos_views.ProjetoDeleteView.as_view(), name='projeto_delete'),
     path("projeto/<int:projeto_id>/", projetos_views.projetoDetail, name="projeto_detail"),
 
-    path('projetos/resultados/<int:projeto_id>', resultados_view.ProjetoCreateView.as_view(), name='projeto_create'),
-
+    path('projetos/resultados/<int:projeto_id>', resultados_view.ResultadoCreateView.as_view(), name='resultado_create'),
+    path('projetos/resultados/<int:resultado_id>/update', resultados_view.ResultadoUpdateView.as_view(), name='resultado_update'),
+    path('projetos/resultados/<int:resultado_id>/delete', resultados_view.ResultadoDeleteView.as_view(), name='resultado_delete'),
+    path("projetos/resultados/<int:resultado_id>/", resultados_view.resultadoDetail, name="resultado_detail"),
 
 ]

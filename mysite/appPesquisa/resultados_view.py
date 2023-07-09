@@ -7,7 +7,7 @@ from .forms import ResultadoForm
 
 from .models import Projeto, Resultado
 
-class ProjetoCreateView(CreateView):
+class ResultadoCreateView(CreateView):
     model = Resultado
     template_name = 'resultado/create.html'
     form_class = ResultadoForm
@@ -17,3 +17,35 @@ class ProjetoCreateView(CreateView):
     def form_valid(self, form):
         form.instance.projeto = get_object_or_404(Projeto, pk=self.kwargs['projeto_id'])
         return super().form_valid(form)
+    
+
+class ResultadoUpdateView(UpdateView):
+    model = Resultado
+    template_name = 'resultado/update.html'
+    form_class = ResultadoForm
+    success_url = reverse_lazy('appPesquisa:projeto_list')
+
+    def get_object(self):
+        return get_object_or_404(Resultado, pk=self.kwargs['resultado_id'])
+    
+    #add the data on the form
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['projeto'] = self.object.projeto
+        return initial
+    
+
+class ResultadoDeleteView(DeleteView):
+    model = Resultado
+    template_name = 'resultado/delete.html'
+    success_url = reverse_lazy('appPesquisa:projeto_list')
+
+    def get_object(self):
+        return get_object_or_404(Resultado, pk=self.kwargs['resultado_id'])
+    
+    
+
+#create a detail view for the resultado
+def resultadoDetail(request, resultado_id):
+    resultado = get_object_or_404(Resultado, pk=resultado_id)
+    return render(request, 'resultado/detail.html', {'resultado': resultado})

@@ -40,10 +40,40 @@ Edição
                         {{ field }}
                     </div>
             {% endfor %}
+
+            {{ inline.management_form }}
+
+            {% for inline_form in inline %}
+                <div class="border border-gray-400 rounded p-4 mb-4 inlineform">
+                    {% for field in inline_form %}
+                        <div class="mb-4">
+                            {{ field.label_tag }}
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
             
             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white rounded px-4 py-2">
                 Atualizar
             </button>
         </form>
     </div>
+{% endblock %}
+
+
+{% block javascript %}
+
+    <script type="text/javascript">
+        $(function () {
+            $('.inlineform').formset({
+                prefix: '{{ inline.prefix }}',
+                addText: 'Adicionar novo integrante',
+                deleteText: 'Remover integrante',
+                addCssClass: 'bg-green-500 text-white font-bold py-2 px-4 rounded',
+                deleteCssClass: 'bg-red-500 text-white font-bold py-2 px-4 rounded',
+
+            });
+        });
+    </script>
 {% endblock %}
