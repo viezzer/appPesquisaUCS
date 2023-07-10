@@ -37,14 +37,16 @@ class ProjetoForm(forms.ModelForm):
         attrs={'class': 'border border-gray-300 rounded px-4 py-2'}))
     situacao = forms.ChoiceField(label='Situação', choices=OPCOES_SITUACAO ,widget=forms.Select(
         attrs={'class': 'border border-gray-300 rounded px-4 py-2'}))
-    natureza = forms.CharField(label='Natureza', max_length=100, widget=forms.TextInput
-    (attrs={'class': 'border border-gray-300 rounded px-4 py-2'}))
+    natureza = forms.CharField(label='Natureza', max_length=100, widget=forms.TextInput(
+        attrs={'class': 'border border-gray-300 rounded px-4 py-2'}))
     criado_em = forms.DateField(label='Data de criação', widget=forms.DateInput(format='%d.%m.%Y',
-    attrs={'class': 'border border-gray-300 rounded px-4 py-2', 'type': 'date'}))
+        attrs={'class': 'border border-gray-300 rounded px-4 py-2', 'type': 'date'}))
+    data_encerramento = forms.DateField(label='Data de encerramento', widget=forms.DateInput(format='%d.%m.%Y',
+        attrs={'class': 'border border-gray-300 rounded px-4 py-2', 'type': 'date'}))
     
     class Meta:
         model = Projeto
-        fields = ['nome', 'descricao', 'situacao', 'natureza', 'criado_em']
+        fields = ['nome', 'descricao', 'situacao', 'natureza', 'criado_em', 'data_encerramento']
 
 
 class ResultadoForm(forms.ModelForm):
@@ -55,7 +57,7 @@ class ResultadoForm(forms.ModelForm):
         ('produto', 'Produto'),
         ('prototipo', 'Protótipo')
     )
-    tipo = forms.ChoiceField(label='Tipo de resultado', choices=OPCOES_TIPO ,widget=forms.Select(attrs={'class': 'border border-gray-300 rounded px-4 py-2'}))
+    tipo = forms.ChoiceField(label='Tipo de resultado', choices=OPCOES_TIPO, widget=forms.Select(attrs={'class': 'border border-gray-300 rounded px-4 py-2'}))
     titulo = forms.CharField(label='Título', max_length=100, widget=forms.TextInput(attrs={'class': 'border border-gray-300 rounded px-4 py-2'}))
     descricao = forms.CharField(label='Descrição', widget=forms.Textarea(attrs={'class': 'border border-gray-300 rounded px-4 py-2'}))
     

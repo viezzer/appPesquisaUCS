@@ -19,6 +19,7 @@ class ProjetosListView(ListView):
         situacao = self.request.GET.get('situacao')
         natureza = self.request.GET.get('natureza')
         criado_em = self.request.GET.get('criado_em')
+        data_encerramento = self.request.GET.get('data_encerramento')
 
         if nome:
             queryset = queryset.filter(nome__icontains=nome)
@@ -28,6 +29,8 @@ class ProjetosListView(ListView):
             queryset = queryset.filter(natureza__icontains=natureza)
         if criado_em:
             queryset = queryset.filter(criado_em=criado_em)
+        if data_encerramento:
+            queryset = queryset.filter(data_encerramento=data_encerramento)
 
         return queryset
 

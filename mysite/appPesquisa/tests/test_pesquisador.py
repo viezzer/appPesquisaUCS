@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from .models import Pesquisador
+from ..models import Pesquisador
 
 class PesquisadorCRUDTest(TestCase):
     def setUp(self):
