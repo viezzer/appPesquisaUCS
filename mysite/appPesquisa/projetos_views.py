@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django import forms
 from .forms import ProjetoForm, ProjetoPesquisadorForm
 from .models import PesquisadorProjeto, Projeto, Resultado
+import datetime
 
 
 class ProjetosListView(ListView):
@@ -41,6 +42,7 @@ class ProjetoCreateView(CreateView):
     success_url = reverse_lazy('appPesquisa:projeto_list')
 
     def form_valid(self, form):
+        form.instance.criado_em = datetime.datetime.now().date()
         self.object = form.save()
         inline_form = forms.inlineformset_factory(Projeto, PesquisadorProjeto, form=ProjetoPesquisadorForm, extra=1)
         inline = inline_form(self.request.POST, instance=self.object)
@@ -72,7 +74,7 @@ class ProjetoUpdateView(UpdateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        form.fields['criado_em'].initial = self.object.criado_em.strftime('%d.%m.%Y')
+        #form.fields['criado_em'].initial = self.object.criado_em.strftime('%d.%m.%Y')
         return form
     
     def get_context_data(self, **kwargs):

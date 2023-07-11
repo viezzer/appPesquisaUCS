@@ -56,7 +56,7 @@ class ProjetoCRUDTest(TestCase):
 
 class ProjetoListFilterTest(TestCase):
     def setUp(self):
-        # Criando alguns projetoes de exemplo
+        # Criando alguns projetos de exemplo
         Projeto.objects.create( 
             nome='Projeto 1',
             descricao='Descrição do projeto chamado 1',
@@ -121,36 +121,3 @@ class ProjetoListFilterTest(TestCase):
         self.assertEqual(response.context['projetos'][0].natureza, 'Pesquisa')
         self.assertEqual(response.context['projetos'][0].criado_em, datetime.today().date())
         self.assertEqual(response.context['projetos'][0].data_encerramento, date(2024, 1 ,1))
-
-#     def test_projeto_filtro_por_area_atuacao(self):
-#         # Realiza uma pesquisa por nome
-#         response = self.client.get(reverse('appPesquisa:projeto_list'), {'area_atuacao': 'Ciências da Saúde'})
-
-#         # Verifica se a resposta é 200 (sucesso)
-#         self.assertEqual(response.status_code, 200)
-
-#         # Verifica se a pesquisa retornou apenas o projeto correto
-#         self.assertEqual(response.context['projetoes'][0].nome, 'Pedro')
-#         self.assertEqual(response.context['projetoes'][0].tipo, 'professor')
-#         self.assertEqual(response.context['projetoes'][0].area_atuacao, 'Ciências da Saúde')
-
-
-#     def test_projeto_filtro_por_tipo_sem_resultados(self):
-#         # Realiza uma pesquisa por nome que não retorna resultados
-#         response = self.client.get(reverse('appPesquisa:projeto_list'), {'tipo': 'funcionario'})
-
-#         # Verifica se a resposta é 200 (sucesso)
-#         self.assertEqual(response.status_code, 200)
-
-#         # Verifica se a pesquisa não retornou nenhum resultado
-#         self.assertEqual(len(response.context['projetoes']), 0)
-
-#     def test_projeto_filtro_por_area_atuacao_sem_resultados(self):
-#         # Realiza uma pesquisa por nome que não retorna resultados
-#         response = self.client.get(reverse('appPesquisa:projeto_list'), {'area_atuacao': 'Criminal'})
-
-#         # Verifica se a resposta é 200 (sucesso)
-#         self.assertEqual(response.status_code, 200)
-
-#         # Verifica se a pesquisa não retornou nenhum resultado
-#         self.assertEqual(len(response.context['projetoes']), 0)

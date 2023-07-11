@@ -39,14 +39,12 @@ class ProjetoForm(forms.ModelForm):
         attrs={'class': 'border border-gray-300 rounded px-4 py-2'}))
     natureza = forms.CharField(label='Natureza', max_length=100, widget=forms.TextInput(
         attrs={'class': 'border border-gray-300 rounded px-4 py-2'}))
-    criado_em = forms.DateField(label='Data de criação', widget=forms.DateInput(format='%d.%m.%Y',
-        attrs={'class': 'border border-gray-300 rounded px-4 py-2', 'type': 'date'}))
     data_encerramento = forms.DateField(label='Data de encerramento', widget=forms.DateInput(format='%d.%m.%Y',
         attrs={'class': 'border border-gray-300 rounded px-4 py-2', 'type': 'date'}))
     
     class Meta:
         model = Projeto
-        fields = ['nome', 'descricao', 'situacao', 'natureza', 'criado_em', 'data_encerramento']
+        fields = ['nome', 'descricao', 'situacao', 'natureza', 'data_encerramento']
 
 
 class ResultadoForm(forms.ModelForm):

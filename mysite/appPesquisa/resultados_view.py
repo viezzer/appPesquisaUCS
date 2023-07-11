@@ -12,6 +12,13 @@ class ResultadoCreateView(CreateView):
     template_name = 'resultado/create.html'
     form_class = ResultadoForm
     success_url = reverse_lazy('appPesquisa:projeto_list')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        projeto_id = self.kwargs['projeto_id']
+        projeto = get_object_or_404(Projeto, pk=projeto_id)
+        context['projeto'] = projeto
+        return context
 
     # add the project to the object before saving
     def form_valid(self, form):
