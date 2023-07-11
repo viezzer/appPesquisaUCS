@@ -28,10 +28,11 @@
 
     <div class="border border-gray-300 rounded p-4 mb-4">
       <h2 class="text-lg font-bold mb-2">{{projeto.nome}}</h2>
-      <p>Situação: {{ projeto.situacao }}</p>
-      <p>Natureza: {{ projeto.natureza }}</p>
-      <p>Criado em: {{ projeto.criado_em }}</p>
-      <p>Encerramento em: {{ projeto.data_encerramento }}</p>
+      <p>Descrição: {{projeto.descricao}}</p>
+      <small>Situação: {{ projeto.situacao }}</small><br/>
+      <small>Natureza: {{ projeto.natureza }}</small><br/>
+      <small>Criado em: {{ projeto.criado_em }}</small><br/>
+      <small>Encerramento em: {{ projeto.data_encerramento }}</small>
     </div>
 
     <div class="border border-gray-300 rounded p-4 mb-4">
